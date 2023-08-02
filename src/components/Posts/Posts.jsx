@@ -1,9 +1,12 @@
 import Post from "./Post/Post";
+import {useSelector} from 'react-redux'
 import './styles.css'
 
 const Posts = () => {
+  const posts = useSelector((state)=>state.posts)
+  console.log(posts)
   return (<>
-  <h1>Posts</h1>;
+  <h1>Posts</h1>
   <Post/>
   <Post/>
   </>)
