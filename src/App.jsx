@@ -1,15 +1,17 @@
+import Form from './components/Form/Form';
+import Posts from './components/Posts/Posts';
 import memories from './images/memories.png';
 import { Container, AppBar, Typography, Grow, Grid } from '@mui/material';
-
+import './styles.css'
 function App() {
   return (
     <Container maxWidth="lg">
-      <AppBar position="static" color="inherit">
-        <Typography variant="h2" align="center">
+      <header className='appBar' position="static" color="inherit">
+        <Typography className='heading' variant="h2" align="center">
           Memories
         </Typography>
-        <img src={memories} alt="memories" height="60" />
-      </AppBar>
+        <img className='image' src={memories} alt="memories" height="60" />
+      </header>
       <Grow in>
         <Container>
           <Grid
@@ -19,11 +21,11 @@ function App() {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              <Posts />
+              <Posts/>
             </Grid>
 
             <Grid item xs={12} sm={4}>
-              <Form />
+            <Form/>
             </Grid>
           </Grid>
         </Container>

@@ -1,3 +1,4 @@
+import './styles.css'
 const Post = () => {
   return <h1>Post</h1>;
 };
