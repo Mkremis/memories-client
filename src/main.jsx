@@ -5,6 +5,7 @@ import { configureStore, applyMiddleware, compose } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import App from './App.jsx';
 import rootReducer from './reducers'; // Asegúrate de importar el objeto de reducers, no solo el reducer
+import './index.css'
 
 const store = configureStore({
   reducer: rootReducer // Pasar el objeto de reducers aquí
