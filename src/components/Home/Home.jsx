@@ -1,28 +1,15 @@
-import { useEffect, useState } from 'react';
 import Form from '../../components/Form/Form';
 import Posts from '../../components/Posts/Posts';
 import { Container, Grow, Grid } from '@mui/material';
+import useStyles from './styles';
 
-const styles = {
-    container: isRowBased => ({
-      flexDirection: isRowBased ? 'row' : 'column-reverse',
-    })
-  };
 
 const Home = ({currentId, setCurrentId})=>{
-    const mediaMatch = window.matchMedia('(min-width: 414px)');
-    const [matches, setMatches] = useState(mediaMatch.matches);
-
-    useEffect(() => {
-        const handler = e => setMatches(e.matches);
-        mediaMatch.addEventListener('change', handler);
-        return () => mediaMatch.removeEventListener('change', handler);
-      });
-
+  const classes = useStyles();
     return(
         <Grow in>
         <Container>
-            <Grid style={styles.container(matches)} container justifyContent="space-between" alignItems="stretch" spacing={3}>
+            <Grid className={classes.gridContainer} container justify="space-between" alignItems="stretch" spacing={3}>
                 <Grid item xs={12} sm={7}>
                     <Posts setCurrentId={setCurrentId}/>
                 </Grid>

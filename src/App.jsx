@@ -2,16 +2,21 @@ import { useEffect, useState } from 'react';
 import {useDispatch} from 'react-redux'
 import { getPosts } from './actions/posts';
 import { Container} from '@mui/material';
-import './styles.css'
+import { createTheme, ThemeProvider} from '@mui/material/styles';
+import useStyles from './styles';
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 
 
+
 function App() {
   const [currentId, setCurrentId] = useState(null)
   const dispatch = useDispatch()
+  const theme = createTheme();
+  const classes = useStyles();
+
 
   useEffect(()=>{
    setTimeout(() => {
@@ -20,6 +25,7 @@ function App() {
   },[currentId, dispatch])
 
   return (
+    <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Container maxWidth="lg">
         <Navbar/>
@@ -29,7 +35,7 @@ function App() {
         </Routes>
       </Container>
     </BrowserRouter>
-   
+    </ThemeProvider>
   );
 }
 

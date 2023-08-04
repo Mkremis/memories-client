@@ -16,7 +16,7 @@ const Auth = ()=>{
 
     return(
        <Container component='main' maxWidth='xs'>
-        <Paper className='paper' elevation={3}>
+        <Paper style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop:8, padding:2}} elevation={3}>
             <Avatar className='avatar'>
                 <LockOutlined/>
             </Avatar>
