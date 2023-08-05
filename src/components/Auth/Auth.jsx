@@ -2,23 +2,38 @@ import {   Avatar, Button, Container, Grid, Paper, TextField, Typography } from 
 import { LockOutlined } from '@mui/icons-material';
 import InputForm from './Input';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import Icon from './icon';
 import useStyles from './styles';
 import { AUTH } from '../../constants/actionTypes';
 import { useDispatch } from 'react-redux';
+import { signin, signup } from '../../actions/auth';
 
-
+const initialState = { firstName : '', lastName : '', email : '', password : '', confirmPassword : '' }
 
 const Auth = ()=>{
     const classes = useStyles();
-    const [showPassord, setShowPassword] = useState(false)
-    const [isSignUp, setIsSignUp] = useState(false)
-    const handleSubmit = ()=>{}
-    const handleChange = ()=>{}
+
+    const [showPassord, setShowPassword] = useState(false);
+    const [isSignUp, setIsSignUp] = useState(false);
+    const [formData, setFormData] = useState(initialState);
+
+
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+       if(isSignUp){
+        dispatch(signup(formData, navigate))
+       }else{
+        dispatch(signin(formData, navigate))
+       }
+    }
+    const handleChange = (e)=>{
+        const { name, value } = e.target
+        setFormData({...formData, [name] : value})
+    }
     const handleShowPassword = ()=>setShowPassword((prev)=>!prev);
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch()
 
 
@@ -27,9 +42,11 @@ const Auth = ()=>{
     const googleSuccess = async (res) => {
         const result = res?.profileObj;
         const token = res?.tokenId;
+    
         try {
           dispatch({ type: AUTH, data: { result, token } });
-          history.push('/');
+    
+          navigate('/');
         } catch (error) {
           console.log(error);
         }
@@ -61,16 +78,16 @@ const Auth = ()=>{
                         {isSignUp ?"Sign Up" :"Sing In"} 
                 </Button>
                 <GoogleLogin
-                clientId="564033717568-e5p23rhvcs4i6kffgsbci1d64r8hp6fn.apps.googleusercontent.com" 
-                render={(renderProps) => (
-                <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
+            clientId="564033717568-bu2nr1l9h31bhk9bff4pqbenvvoju3oq.apps.googleusercontent.com"
+            render={(renderProps) => (
+              <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained" startIcon={<Icon />}>
                 Google Sign In
-                </Button>
-                )}
-                onSuccess={googleSuccess}
-                onFailure={googleError}
-                cookiePolicy="single_host_origin"
-                />
+              </Button>
+            )}
+            onSuccess={()=>googleSuccess}
+            onFailure={()=>googleError}
+            cookiePolicy="single_host_origin"
+          />
                 <Grid container justifyContent={'center'}>
                     <Grid item>
                         <Button onClick={swithMode}>

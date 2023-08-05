@@ -1,10 +1,9 @@
 import * as api from "../api";
 import { CREATE, DELETE, FETCH_ALL, LIKE, UPDATE } from "../constants/actionTypes";
 
-// Actions Creatorsconsole.log('data', data)
 export const getPosts =()=>async(dispatch)=>{
     try {
-        const {data} = await api.fetchPosts()
+        const {data} = await api.fetchPosts();
         dispatch({type : FETCH_ALL, payload : data})
     } catch (error) {
         console.log(error)
